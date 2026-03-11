@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Secure Checkout - VIP STORE</title>
+    <style>
+        :root {
+            --pink: #ff0055;
+            --blue: #00f2ff;
+            --yt-black: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --green: #00ff88;
+            --gold: #ffcc00;
+        }
+
+        body {
+            background-color: var(--yt-black);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- Top Bar (Matching Index) --- */
+
+        .top-bar {
+            background: linear-gradient(90deg, var(--pink), var(--gold), var(--pink));
+            background-size: 200% auto;
+            animation: shine 2s linear infinite;
+            color: black;
+            text-align: center;
+            padding: 10px;
+            font-size: 11px;
+            font-weight: 900;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+            box-shadow: 0 2px 15px var(--pink);
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        header {
+            position: fixed;
+            top: 38px;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.98);
+            z-index: 1000;
+            border-bottom: 2px solid var(--pink);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-weight: 900;
+            letter-spacing: 1px;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        /* --- Checkout Container --- */
+
+        .checkout-container {
+            margin-top: 110px;
+            padding: 20px;
+            padding-bottom: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .order-card {
+            width: 100%;
+            max-width: 400px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+        }
+
+        .title-section {
+            margin-bottom: 25px;
+            border-left: 4px solid var(--blue);
+            padding-left: 15px;
+        }
+
+        .title-section h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .title-section p {
+            margin: 5px 0 0;
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* --- Form Styling --- */
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        input {
+            width: 100%;
+            background: #0f0f0f;
+            border: 1.5px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            color: white;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: var(--pink);
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+        }
+
+        /* --- Price Display --- */
+
+        .price-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 1px dashed #444;
+        }
+
+        .total-label {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .total-amount {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--green);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        /* --- Pay Button --- */
+
+        .pay-btn {
+            width: 100%;
+            background: linear-gradient(45deg, var(--pink), #ff5500);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(255, 0, 85, 0.4);
+            transition: 0.3s;
+        }
+
+        .pay-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* --- Bottom Nav --- */
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #000;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #222;
+            z-index: 2000;
+        }
+
+        .nav-tab {
+            color: #555;
+            font-size: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-tab.active {
+            color: var(--pink);
+        }
+
+        .tc-tag {
+            text-align: center;
+            padding: 20px;
+            font-size: 10px;
+            color: #444;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">⚡ ATTENTION: COMPLETE ORDER BEFORE TIMER HITS 00:00 ⚡</div>
+
+    <header>
+        <div style="font-size: 24px; color: var(--pink);">☰</div>
+        <div class="logo">ITACHI <span style="color:var(--pink)">STORE</span></div>
+    </header>
+
+    <div class="checkout-container">
+        <div class="order-card">
+            <div class="title-section">
+                <h2>Order Details</h2>
+                <p>Please enter your active WhatsApp/Telegram info</p>
+            </div>
+
+            <form action="payment.php" method="GET">
+                <input type="hidden" name="p" id="hidden_price">
+                <input type="hidden" name="type" id="hidden_type">
+
+                <div class="input-group">
+                    <label>Telegram Username</label>
+                    <input type="text" name="telegram" placeholder="@username" required>
+                </div>
+
+                <div class="input-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" name="whatsapp" placeholder="+91 00000-00000" required>
+                </div>
+
+                <div class="price-box">
+                    <span class="total-label">Amount to be Paid</span>
+                    <span id="display-price" class="total-amount">₹--</span>
+                </div>
+
+                <button type="submit" class="pay-btn">
+                PROCEED TO CHECKOUT
+            </button>
+            </form>
+
+            <p style="font-size: 10px; color: #555; text-align: center; margin-top: 15px;">
+                🔒 256-bit Secure Encryption | Instant Activation
+            </p>
+        </div>
+
+        <div class="tc-tag">
+            <p>© 2026 ITACHI STORE. All Rights Reserved.</p>
+            <p>By proceeding, you agree to our Terms & Conditions.</p>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="index.php" class="nav-tab"><span>🏠</span><br>HOME</a>
+        <a href="index.php#feedback" class="nav-tab"><span>💬</span><br>FEEDBACK</a>
+        <a href="index.php#profile" class="nav-tab active"><span>👤</span><br>CHECKOUT</a>
+    </nav>
+
+    <script>
+        // --- PRICE LOGIC: Get from URL and Pass to Payment ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const priceFromUrl = urlParams.get('p') || '99'; // Default 99/-
+        const typeFromUrl = urlParams.get('type') || 'full';
+
+        // Update the UI
+        document.getElementById('display-price').innerText = '₹' + priceFromUrl;
+
+        // Fill hidden inputs for payment.php
+        document.getElementById('hidden_price').value = priceFromUrl;
+        document.getElementById('hidden_type').value = typeFromUrl;
+
+        // --- TIMER LOGIC ---
+        let time = 300;
+        const timerDisplay = document.querySelector('.top-bar');
+        setInterval(() => {
+            let m = Math.floor(time / 60);
+            let s = time % 60;
+            let timerText = `⚡ ATTENTION: COMPLETE ORDER BEFORE TIMER HITS 0${m}:${s<10?'0':''}${s} ⚡`;
+            timerDisplay.innerHTML = timerText;
+            if (time > 0) time--;
+        }, 1000);
+    </script>
+
+</body>
+
+</html>
